@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+body {
+	background-image: url(1280_800_2.jpg);
+}
+#Layer1 {
+	position:absolute;
+	width:430px;
+	height:207px;
+	z-index:1;
+	left: 136px;
+	top: 231px;
+}
+body,td,th {
+	font-family: Comic Sans MS, sans-serif;
+	font-size: 40px;
+	color: #FFFFFF;
+}
+.input_style
+{
+font-family: Comic Sans MS, sans-serif;
+font-size: 30px;
+color: #FFFFFF;
+background: transparent;
+border: 0px solid #FFFFFF;
+}
+
+.STYLE1 {font-size: 30px}
+.submit_style
+{font-size: 25px; 
+font-family: "Comic Sans MS", sans-serif; 
+width: 120px; border:solid; 
+border-color:#FFFFFF; 
+background:transparent;
+color:#FFFFFF;
+font-weight:bold;
+}
+-->
+</style></head>
+
+<body>
+<div style="float:right;"></div>
+<div id="Layer1">
+  <table width="430" height="205" border="0">
+    <tr>
+      <td><span class="STYLE1">&nbsp; Username:&nbsp;&nbsp;  </span>
+	    <input name="username" class="input_style" type="text" size="12" onkeyup="value=value.replace(/[\W]/g,'')  "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,'')) "onkeydown="if(event.keyCode==13)event.keyCode=9"/>	  </td>
+    </tr>
+    <tr>
+      <td><span class="STYLE1">&nbsp; Password: &nbsp;&nbsp;   
+          <input name="password" type="password" size="12" class="input_style" onclick="this.style='border=0'"/>
+      </span></td>
+    </tr>
+    <tr>
+      <td><table width="424" border="0">
+  <tr>
+    <td width="203">
+	  <div align="center">
+	    <input type="submit" name="login" value="Login" class="submit_style">
+	    </div></td>
+    <td width="205"> <div align="center">
+	    <input type="submit" name="register" value="Register" class="submit_style">
+	    </div></td>
+  </tr>
+</table>
+</td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

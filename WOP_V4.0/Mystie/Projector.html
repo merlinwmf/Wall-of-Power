@@ -1,0 +1,238 @@
+<!DOCTYPE>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>Wall Of Power</title>
+
+<script src="resources/js/raphael.2.1.0.min.js"></script>
+<script src="resources/js/justgage.1.0.1.min.js"></script>
+<script src="resources/js/dygraph-combined.js"></script>
+
+<link rel="stylesheet" href="css/jgauge.css" type="text/css" />
+
+<script language="javascript" type="text/javascript" src="js/jquery-1.4.2.min.js"></script> <!-- jQuery JavaScript library. -->
+<script language="javascript" type="text/javascript" src="js/jQueryRotate.min.js"></script> <!-- jQueryRotate plugin used for needle movement. -->
+<script language="javascript" type="text/javascript" src="js/jgauge-0.3.0.a3.js"></script> 
+<script language="javascript" type="text/javascript" src="js/jquery.flot.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery.flot.stack.js"></script>
+
+
+
+<style type="text/css">
+<!--
+body {
+	background-image: url(projector_2.jpg);
+	text-align: center;
+}
+#g1,#g2,#g3,#g4,#g5,#g6 {
+        width:100px; height:80px;
+        display: inline-block;
+        margin: 1em;
+		
+      }
+
+#Layer1 {
+	position:absolute;
+	width:466px;
+	height:277px;
+	z-index:1;
+	left: 994px;
+	top: 265px;
+}
+
+-->
+</style>
+<script>
+      window.onload = function(){
+	 
+			
+        var g1 = new JustGage({
+          id: "g1", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "Virtual TV",
+          showMinMax: false,   
+          shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,   
+		});
+	    
+		var g2 = new JustGage({
+          id: "g2", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "Virtual STB",
+            shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,
+		  showMinMax: false,  
+        });
+        
+        var g3 = new JustGage({
+          id: "g3", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "Virtual Laptop",
+          showMinMax: false, 
+          shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,		  
+        }); 
+		    var g4 = new JustGage({
+          id: "g4", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "TV",
+          showMinMax: false, 
+		  shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,     
+        });
+		    var g5 = new JustGage({
+          id: "g5", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "Lamp",
+          showMinMax: false,  
+		   shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,   
+        });
+		    var g6 = new JustGage({
+          id: "g6", 
+          value: getRandomInt(0, 100), 
+          min: 0,
+          max: 100,
+          title: "Laptop",
+          showMinMax: false,        
+          shadowOpacity: 1,
+          shadowSize: 0,
+          shadowVerticalOffset: 5,
+		}); 
+		  setInterval(function() {
+          g1.refresh(getRandomInt(50, 100));
+          g2.refresh(getRandomInt(50, 100));
+		  g3.refresh(getRandomInt(50, 100))
+		  g4.refresh(getRandomInt(50, 100))
+		  g5.refresh(getRandomInt(50, 100))
+		  g6.refresh(getRandomInt(50, 100));
+        }, 2500); 
+		
+		var options = {
+		series: { label: "Total Power (W)", shadowSize: 0, color: '#3ADF00', lines: { show: true, fill: true }},
+        yaxis: { min: 0, max: 300 },
+        xaxis: { show: false},
+
+    };
+    var plot = $.plot($("#placeholder_4"), [ ], options);
+
+      };
+    </script>
+    <script type="text/javascript">
+var makeDrag_flag = false;
+var makeDrop_objs = [];
+function makeDrop(obj)
+{
+	makeDrop_objs.push(obj);	
+}
+function makeDrag(obj)
+{
+	obj.onmousedown = function (e)
+	{
+		if (!document.all) e.preventDefault();
+		var oPos = getObjPos(obj);
+		var cPos = getCurPos(e);
+		makeDrag_flag = true;
+		document.onmouseup = function (e){
+			makeDrag_flag = false;
+			document.onmousemove = null;
+			document.onmouseup = null;			
+			var nPos = getCurPos(e);			
+			for(i = 0; i < makeDrop_objs.length; i++)
+			{
+				var tg = makeDrop_objs[i];
+				var tPos = getObjPos(tg);
+				var tg_w = tg.offsetWidth;
+				var tg_h = tg.offsetHeight;
+				if ((nPos.x > tPos.x) && (nPos.y > tPos.y) && (nPos.x < tPos.x + tg_w) && (nPos.y < tPos.y + tg_h))
+				{
+					tg.innerHTML += '<p>' + obj.innerHTML + 'í?è?</p>'
+					obj.style.display = 'none';
+				}
+			}
+	    };
+		document.onmousemove = function (e)
+		{
+			if (makeDrag_flag)
+			{
+				obj.style.position = 'absolute';
+				var Pos = getCurPos(e);
+				obj.style.left = Pos.x - cPos.x + oPos.x + 'px';
+				obj.style.top = Pos.y - cPos.y + oPos.y + 'px';
+			}
+			return false;
+		}
+	}
+}
+
+function getObjPos(obj)
+{
+	var x = y = 0;
+	if (obj.getBoundingClientRect)
+	{
+		var box = obj.getBoundingClientRect();
+		var D = document.documentElement;
+		x = box.left + Math.max(D.scrollLeft, document.body.scrollLeft) - D.clientLeft;
+		y = box.top + Math.max(D.scrollTop, document.body.scrollTop) - D.clientTop;		
+	}
+	else
+	{
+		for(; obj != document.body; x += obj.offsetLeft, y += obj.offsetTop, obj = obj.offsetParent );
+	}
+	return {'x':x, 'y':y};
+}
+
+function getCurPos(e)
+{
+	e = e || window.event;
+	var D = document.documentElement;
+	if (e.pageX) return {x: e.pageX, y: e.pageY};
+	return {
+		x: e.clientX + D.scrollLeft - D.clientLeft,
+		y: e.clientY + D.scrollTop - D.clientTop	
+	};
+}
+</script>
+    
+    
+    </head>
+<body>
+<div id="Layer1">
+  <table width="436" height="266" border="0">
+    <tr align="center">
+      <td width="65" height="128"><div id='g1'></div></td>
+      <td width="65"><div id='g2' ></div></td>
+      <td width="65"><div id='g3'></div></td>
+    </tr>
+    <tr>
+      <td><div id='g4'></div></td>
+      <td><div id='g5'></div></td>
+      <td><div id='g6'></div></td>
+    </tr>
+  </table>
+</div>
+<script type="text/javascript">
+//逐个注册drag事件
+var itemx = document.getElementById('Layer1')
+
+makeDrag(itemx);
+var dropItem = document.getElementById('drop');
+makeDrop(dropItem);
+</script>
+</body>
+</html>
